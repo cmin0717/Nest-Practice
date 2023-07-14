@@ -1,0 +1,31 @@
+### Nest JS CLI 명령어 ###
+
+- nest cli 설치
+npm install -g @nestjs/cli
+
+- nest 프로젝트 생성
+nest new 프로젝트명
+ex : nest new project1
+
+- nest 모듈 생성
+nest generate module 모듈명
+generate는 간략하게 g로 표현해도 된다.
+module도 간략하게 mo로 표현해도 된다.
+
+- nest 컨트롤러 생성
+nest g co 컨트롤러명
+ex : nest g co test/con --flat -> test라는 폴더 안에 con이라는 컨트롤러를 만들겠다 라는 의미이다.
+--flat은 컨트롤러를 폴더로 만들지 않고 flat하게 해당 폴더에 생성하겠다 라는 의미이다.
+
+
+### 각 종 설치 명령어 ###
+
+- nest project 실행
+npm run start:dev
+package.json에서 해당 명령어를 바꾸어 줄 수 있다.
+사실 이런 명령어들은 package에서 우리가 정한것이니
+
+- validator 설치
+npm install class-validator
+npm install class-transformer
+유효성검사를 위한 라이브러리 (2개 다 설치해 주어야 한다.)

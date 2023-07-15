@@ -17,6 +17,9 @@ nest g co 컨트롤러명
 ex : nest g co test/con --flat -> test라는 폴더 안에 con이라는 컨트롤러를 만들겠다 라는 의미이다.
 --flat은 컨트롤러를 폴더로 만들지 않고 flat하게 해당 폴더에 생성하겠다 라는 의미이다.
 
+- nest 서비스 생성
+nest g service 서비스명
+
 
 ### 각 종 설치 명령어 ###
 

@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { MessagesModule } from './messages/messages.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { AppModule } from './app.module';
 
 // 싱글톤 패턴으로 Application 구현
 class Application {
@@ -30,9 +30,7 @@ class Application {
 }
 
 const init = async () => {
-  const server = await NestFactory.create<NestExpressApplication>(
-    MessagesModule,
-  );
+  const server = await NestFactory.create<NestExpressApplication>(AppModule);
   const app = new Application(server);
   await app.bootstrap();
 };

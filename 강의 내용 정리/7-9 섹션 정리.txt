@@ -1,0 +1,23 @@
+- TypeORM에서 Entity를 이용하여 DB에 값을 저장하는 과정
+Repositoty를 이용하여 create하면 해당 Entity 클래스의 인스턴스를 주어진 값으로 만든다.
+그렇게 만든 엔티티 인스턴스를 save메서드를 통해 실제 데이터베이스에 저장하게되는것이다.
+그렇기에 create만 하고 save하지 않는다면 데이터베이스에 저장되지 않는것이다.
+쉽게 말해 create는 우리가 작성한 Entity클래스의 인스턴스를 생성하는것이고 save는 셍성한 인스턴스를 실제 데이터베이스에 저장하는 것이다.
+
+- TypeORM에서 항상 Entity를 사용하여 DB에 값을 넣어야하는가?
+무조건은 아니다.
+save에 해당 Entity항목의 값을 따로 넣어서 저장해도 데이터베이스에 값은 들어간다.
+하지만 왜 Entity클래스의 인스턴스를 생성하여 save하는가?
+이유는 Entity을 인스턴스화 해서 save하게 되면 Entity내부에서 설정한 훅들을 작동 시킬수있다.
+AfterUpdate, AfterInsert등등 해당 Entity의 훅들을 작동 시키려면 인스턴스를 생성후 save해야한다.
+그냥 save에 값을 넣어 한다면 Entity에 해당하는 훅들이 작동하지 않고 그냥 데이터가 저장될것이다.
+
+-TypeORM에서 save vs insert, update의 차이점과 remove vs delete의 차이점
+save와 remove는 Entity를 이용하여 저장할것을 예상하며 Entity를 사용할경우 훅이 실행된다.
+하지만 insert, update, delete는 훅이 실행되지 않으며 그렇기에 예상과 다르게 작업이 진행될수도있다.
+그렇기에 훅들을 사용하는 Entity에서는 save와 remove를 사용하는것이 좋다.
+하지만 훅을 사용하지 않는 Entity을 update할때도 save를 사용한다면 비효율적인 작업이된다.
+save를 사용하여 update하게 되면 데이터베이스에서 데이터를 가져오고 수정하고 다시 저장하는작업이 실행되는데 이러면 데이터베이스에 2번 접근하게된다.
+그렇기에 훅을 사용하지 않는 Entity에서는 한번의 접근으로 데이터를 수정하는 update를 사용하는것이 효율적이게된다.
+각 Entity의 상황에 따라 TypeORM 메서드를 사용하는것이 좋을거 같다.
+

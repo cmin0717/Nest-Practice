@@ -20,6 +20,11 @@ ex : nest g co test/con --flat -> test라는 폴더 안에 con이라는 컨트�
 - nest 서비스 생성
 nest g service 서비스명
 
+- nest 리소스 생성
+nest g res 리소스명
+(리소스란 해당 모듈에 필요한 정보들을 말한다.)
+위와 같이 설치하면 컨트롤러 모듈 서비스 엔티티 dto가 같이 생성된다.
+
 
 ### 각 종 설치 명령어 ###
 
@@ -32,3 +37,14 @@ package.json에서 해당 명령어를 바꾸어 줄 수 있다.
 npm install class-validator
 npm install class-transformer
 유효성검사를 위한 라이브러리 (2개 다 설치해 주어야 한다.)
+
+- TypeOrm 설치
+npm i @nestjs/typeorm
+npm i typeorm
+(사용할 데이터베이스 설치)
+npm i mysql2
+npm i sqlite3
+등등...
+
+- Config 설치
+npm i @nestjs/config

@@ -1,5 +1,5 @@
 import { CommonEntity } from 'src/common/common.entity';
-import { Entity, Column, AfterInsert } from 'typeorm';
+import { Entity, Column, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 @Entity({ name: 'User' })
@@ -16,5 +16,15 @@ export class User extends CommonEntity {
   @AfterInsert()
   afterInsert() {
     console.log('생성되었습니다!');
+  }
+
+  @AfterUpdate()
+  afterUpdate() {
+    console.log('업데이트 되었슴당');
+  }
+
+  @AfterRemove()
+  afterRemove() {
+    console.log('삭제 되었습니다.');
   }
 }

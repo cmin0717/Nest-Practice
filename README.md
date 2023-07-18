@@ -17,3 +17,12 @@
 * Service와 Repository를 따로 분리하는 이유
 * DI와 IoC에 대하여
 * Nest JS에서의 의존성 부여의 과정
+
+### 7 ~ 9 섹션
+* TypeORM에서 Entity를 사용하여 DB에 접근하는 이유
+* save 와 update, insert의 차이
+* remove와 delete의 차이
+
+### 10 섹션
+* Interceptor의 역활, 진행 과정
+* 직렬화(Serialization) 와 역직렬화(Deserialization) 과정

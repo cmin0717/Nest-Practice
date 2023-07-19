@@ -48,3 +48,20 @@ npm i sqlite3
 
 - Config 설치
 npm i @nestjs/config
+
+- jwt 설치
+npm i @nestjs/jwt
+
+- passport 설치 (jwt 구현시 필요)
+npm i @nestjs/passport
+npm i @types/passport
+npm i passport
+npm i passport-jwt
+
+- session 설치 (passport 설정시 필요하다.)
+npm i @types/express-session
+npm i express-session
+
+- cookie
+npm i cookie-parser
+npm i @types/cookie-parser

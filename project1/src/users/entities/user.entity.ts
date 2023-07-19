@@ -1,7 +1,7 @@
 import { CommonEntity } from 'src/common/common.entity';
 import { Entity, Column, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { Exclude, Expose } from 'class-transformer';
+import { Expose } from 'class-transformer';
 
 @Entity({ name: 'User' })
 export class User extends CommonEntity {

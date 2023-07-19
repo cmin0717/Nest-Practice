@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import * as passPort from 'passport';
+import * as expressSession from 'express-session';
+import * as cookieParser from 'cookie-parser';
 
 // 싱글톤 패턴으로 Application 구현
 class Application {
@@ -19,6 +22,18 @@ class Application {
       new ValidationPipe({ transform: true, whitelist: true }),
       // whitelist옵션 : 내가의도한 DTO값만 사용하게된다. DTO을 충족하지만 더 많은 정보를 줄 경우에 DTO에 있는 정보만 사용하게 된다.
     );
+
+    app.use(cookieParser());
+    app.use(
+      expressSession({
+        secret: process.env.SECRET_KEY,
+        resave: true,
+        saveUninitialized: true,
+      }),
+    );
+
+    app.use(passPort.initialize());
+    app.use(passPort.session());
   }
 
   async bootstrap() {

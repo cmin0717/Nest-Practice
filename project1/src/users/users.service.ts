@@ -20,8 +20,13 @@ export class UsersService {
     return this.userRepo.find();
   }
 
+  findOneEmail(email: string) {
+    return this.userRepo.findOne({ where: { email } });
+  }
+
   async findOne(id: string) {
-    const user = await this.userRepo.findOne({ where: { id: id } });
+    const user = await this.userRepo.findOne({ where: { id } });
+
     if (!user) {
       throw new NotFoundException('해당 유저가 없습니다.');
     }

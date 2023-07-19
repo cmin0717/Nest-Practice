@@ -6,25 +6,49 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
+  UseGuards,
+  HttpException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Serialize } from 'src/common/serialize.interceptor';
 import { UserDto } from './dto/view-user.dto';
+import { AuthService } from './auth.service';
+import { Response } from 'express';
+import { JwtAuthGuard } from './jwt/jwt.guard';
+import { CurrentUser } from 'src/common/current.user.decorator';
 
 // @UseInterceptors(new serializeInterceptor(UserDto))
 @Serialize(UserDto)
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post()
   create(@Body() body: CreateUserDto) {
-    return this.usersService.create(body.email, body.password);
+    return this.authService.signUp(body.email, body.password);
+  }
+
+  @Post('/login')
+  login(
+    @Body() body: CreateUserDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.signIn(body.email, body.password, res);
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  currentUser(@CurrentUser() user: UserDto) {
+    return user;
+  }
+
+  @Get('/all')
   findAll() {
     return this.usersService.findAll();
   }
@@ -42,5 +66,15 @@ export class UsersController {
   @Delete('/:id')
   delete(@Param('id') id: string) {
     return this.usersService.remove(id);
+  }
+
+  @Post('logout')
+  logout(@Res({ passthrough: true }) res: Response) {
+    try {
+      res.clearCookie('jwt');
+    } catch (error) {
+      throw new HttpException('로그아웃 실패', 400);
+    }
+    return '로그아웃 완료!';
   }
 }

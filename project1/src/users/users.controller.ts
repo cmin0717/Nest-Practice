@@ -9,6 +9,7 @@ import {
   Res,
   UseGuards,
   HttpException,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,9 +20,12 @@ import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { JwtAuthGuard } from './jwt/jwt.guard';
 import { CurrentUser } from 'src/common/current.user.decorator';
+import { CurrentUserInterceptor } from 'src/common/current.user.interceptor';
+import { User } from './entities/user.entity';
 
 // @UseInterceptors(new serializeInterceptor(UserDto))
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 @Controller('users')
 export class UsersController {
   constructor(
@@ -44,7 +48,8 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  currentUser(@CurrentUser() user: UserDto) {
+  currentUser(@CurrentUser() user: User) {
+    console.log(user);
     return user;
   }
 

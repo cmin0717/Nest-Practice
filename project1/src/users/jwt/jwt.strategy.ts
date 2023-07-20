@@ -22,10 +22,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: Payload) {
-    const user = await this.usersRepository.findOne(payload.id);
+    // const user = await this.usersRepository.findOne(payload.id);
 
-    if (user) {
-      return user;
+    if (payload.id) {
+      return payload.id;
     } else {
       throw new HttpException('접근 오류!', 400);
     }

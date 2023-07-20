@@ -6,6 +6,7 @@ import {
 import { Request } from 'express';
 
 export const CurrentUser = createParamDecorator(
+  // 매개변수 data는 해당 커스텀 데콜레이터의 인자로 넣어준값이 들어온다.
   (data: unknown, ctx: ExecutionContext) => {
     const req: Request = ctx.switchToHttp().getRequest();
     if (req.user) return req.user;

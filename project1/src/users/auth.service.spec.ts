@@ -5,7 +5,6 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { HttpException } from '@nestjs/common';
-import { Response } from 'express';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -17,7 +16,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     fakeUserService = {
-      findOneEmail: () => Promise.resolve({} as User),
+      findOneEmail: () => Promise.resolve(null),
       create: (email: string, password: string) =>
         Promise.resolve({ id: 'uuid', email, password } as User),
     };

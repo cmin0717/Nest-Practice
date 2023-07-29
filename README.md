@@ -26,3 +26,13 @@
 ### 10 섹션
 * Interceptor의 역활, 진행 과정
 * 직렬화(Serialization) 와 역직렬화(Deserialization) 과정
+
+### 11 섹션
+* Crypto를 사용한 암호화
+* 커스텀 데코레이터
+
+### 12 ~ 14 섹션
+* Jest를 이용한 테스트 코드
+* Fake함수를 통한 Unit 테스트
+* E2E 테스트를 하기 위한 테스트용 데이터 베이스
+* 테스트 DI에 의존성 부여

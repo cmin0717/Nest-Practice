@@ -5,7 +5,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 // 커스텀 데코레이터를 의도에 맞게 사용하기위해 이전에 인터셉트로 미리 밑작업을 해둔다.
 @Injectable()

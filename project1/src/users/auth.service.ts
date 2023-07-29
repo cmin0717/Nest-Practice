@@ -18,7 +18,7 @@ export class AuthService {
   async signUp(email: string, password: string) {
     try {
       const user = await this.userService.findOneEmail(email);
-      if (user.email) {
+      if (user) {
         throw new HttpException('이미 존재하는 이메일 입니다.', 400);
       }
 

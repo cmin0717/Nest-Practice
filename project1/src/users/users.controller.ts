@@ -14,13 +14,13 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Serialize } from 'src/common/serialize.interceptor';
+import { Serialize } from '../common/serialize.interceptor';
 import { UserDto } from './dto/view-user.dto';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { JwtAuthGuard } from './jwt/jwt.guard';
-import { CurrentUser } from 'src/common/current.user.decorator';
-import { CurrentUserInterceptor } from 'src/common/current.user.interceptor';
+import { CurrentUser } from '../common/current.user.decorator';
+import { CurrentUserInterceptor } from '../common/current.user.interceptor';
 import { User } from './entities/user.entity';
 
 // @UseInterceptors(new serializeInterceptor(UserDto))

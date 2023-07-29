@@ -18,7 +18,7 @@ export class AuthService {
   async signUp(email: string, password: string) {
     try {
       const user = await this.userService.findOneEmail(email);
-      if (user) {
+      if (user.email) {
         throw new HttpException('이미 존재하는 이메일 입니다.', 400);
       }
 
@@ -37,11 +37,11 @@ export class AuthService {
     }
   }
 
-  async signIn(email: string, password: string, res: Response) {
+  async signIn(email: string, password: string, res?: Response) {
     try {
       const user = await this.userService.findOneEmail(email);
 
-      if (!user) {
+      if (!user.email) {
         throw new HttpException('해당 가입정보가 없습니다.', 400);
       }
 
@@ -56,7 +56,11 @@ export class AuthService {
         { id: user.id },
         { secret: process.env.SECRET_KEY },
       );
-      res.cookie('jwt', jwt, { httpOnly: true });
+
+      if (res) {
+        res.cookie('jwt', jwt, { httpOnly: true });
+      }
+
       return user;
     } catch (error) {
       throw error;

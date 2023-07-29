@@ -1,4 +1,4 @@
-import { CommonEntity } from 'src/common/common.entity';
+import { CommonEntity } from '../../common/common.entity';
 import { Entity, Column, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Expose } from 'class-transformer';

@@ -25,7 +25,6 @@ import { User } from './entities/user.entity';
 
 // @UseInterceptors(new serializeInterceptor(UserDto))
 @Serialize(UserDto)
-@UseInterceptors(CurrentUserInterceptor)
 @Controller('users')
 export class UsersController {
   constructor(
@@ -48,6 +47,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
+  @UseInterceptors(CurrentUserInterceptor)
   currentUser(@CurrentUser() user: User) {
     console.log(user);
     return user;

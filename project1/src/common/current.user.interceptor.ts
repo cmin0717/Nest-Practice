@@ -1,6 +1,7 @@
 import {
   CallHandler,
   ExecutionContext,
+  HttpException,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
@@ -14,12 +15,13 @@ export class CurrentUserInterceptor implements NestInterceptor {
 
   async intercept(context: ExecutionContext, next: CallHandler<any>) {
     const req: Request = context.switchToHttp().getRequest();
-    const userId = req.user;
 
     // 현재 로그인한 정보가 있다면 req객체의 user에 해당 유저 정보를 DB에서 가져와 넣어둔다.
-    if (userId) {
-      const user = await this.userService.findOne(userId as string);
+    if (req.user) {
+      const user = await this.userService.findOne(req.user as string);
       req.user = user;
+    } else {
+      throw new HttpException('인증이 필요한 요청입니다.', 401);
     }
 
     // next.handle()는 다음 작업으로 넘긴다는 의미이다

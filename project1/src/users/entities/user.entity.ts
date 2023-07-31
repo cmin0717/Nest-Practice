@@ -1,7 +1,15 @@
 import { CommonEntity } from '../../common/common.entity';
-import { Entity, Column, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
+import {
+  Entity,
+  Column,
+  AfterInsert,
+  AfterUpdate,
+  AfterRemove,
+  OneToMany,
+} from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Expose } from 'class-transformer';
+import { Report } from 'src/reports/entities/report.entity';
 
 @Entity({ name: 'User' })
 export class User extends CommonEntity {
@@ -29,4 +37,7 @@ export class User extends CommonEntity {
   afterRemove() {
     console.log('삭제 되었습니다.');
   }
+
+  @OneToMany(() => Report, (report) => report.user)
+  reports: Report[];
 }

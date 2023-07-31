@@ -58,6 +58,7 @@ import { Report } from './reports/entities/report.entity';
           entities: [User, Report],
           autoLoadEntities: true,
           synchronize: true,
+          // dropSchema: true,
         };
       },
     }),

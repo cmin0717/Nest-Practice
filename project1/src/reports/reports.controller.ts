@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ReportsService } from './reports.service';
 import { CreateReportDto } from './dto/create-report.dto';
@@ -18,6 +19,9 @@ import { CurrentUser } from 'src/common/current.user.decorator';
 import { User } from 'src/users/entities/user.entity';
 import { Serialize } from 'src/common/serialize.interceptor';
 import { ReportDto } from './dto/view-report.dto';
+import { ApproveDTO } from './dto/approve.dto';
+import { AdminGuard } from 'src/common/admin.guard';
+import { quaryDTO } from './dto/quary.dto';
 
 @Controller('reports')
 @UseInterceptors(CurrentUserInterceptor)
@@ -32,8 +36,8 @@ export class ReportsController {
   }
 
   @Get()
-  findAll() {
-    return this.reportsService.findAll();
+  quary(@Query() quary: quaryDTO) {
+    return this.reportsService.quaryBuilder(quary);
   }
 
   @Get(':id')
@@ -42,8 +46,9 @@ export class ReportsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReportDto: UpdateReportDto) {
-    return this.reportsService.update(+id, updateReportDto);
+  @UseGuards(AdminGuard)
+  update(@Param('id') id: string, @Body() body: ApproveDTO) {
+    return this.reportsService.changeApprove(id, body.approve);
   }
 
   @Delete(':id')

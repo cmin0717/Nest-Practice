@@ -8,6 +8,10 @@ import { JwtService } from '@nestjs/jwt';
 // promisify매서드는 콜백함수로 처리해야할 함수를 프로미스 함수로 처리할수있게 해주는 매서드이다.
 const scrypt = promisify(_scrypt);
 
+interface info {
+  id: string;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -34,6 +38,18 @@ export class AuthService {
       return this.userService.create(email, result);
     } catch (error) {
       throw error;
+    }
+  }
+
+  async decode(token: string) {
+    const info = this.jwtService.decode(token) || undefined;
+
+    if (typeof info === 'object' && 'id' in info) {
+      const id = info.id;
+      const user = await this.userService.findOne(id);
+      return user;
+    } else {
+      return false;
     }
   }
 

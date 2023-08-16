@@ -7,7 +7,7 @@ import {
   AfterRemove,
   OneToMany,
 } from 'typeorm';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty } from 'class-validator';
 import { Expose } from 'class-transformer';
 import { Report } from 'src/reports/entities/report.entity';
 
@@ -22,6 +22,10 @@ export class User extends CommonEntity {
   @IsNotEmpty({ message: '값을 입력해주쇼' })
   @Column({ type: 'varchar', nullable: false })
   password: string;
+
+  @IsBoolean()
+  @Column({ default: false })
+  admin: boolean;
 
   @AfterInsert()
   afterInsert() {

@@ -1,5 +1,4 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
-import { CommonEntity } from '../../common/common.entity';
+import { Transform } from 'class-transformer';
 import {
   IsNumber,
   IsString,
@@ -8,47 +7,37 @@ import {
   IsLongitude,
   IsLatitude,
 } from 'class-validator';
-import { User } from 'src/users/entities/user.entity';
 
-@Entity({ name: 'Report' })
-export class Report extends CommonEntity {
-  @Column({ type: 'int' })
+export class quaryDTO {
+  @Transform(({ value }) => parseInt(value))
   @IsNumber({}, { message: '숫자를 입력해주세요' })
   @Min(0, { message: '양수를 입력해주세요' })
   @Max(1000000, { message: '최댓값을 넘어간 수 입니다.' })
   price: number;
 
-  @Column({ default: false })
-  approve: boolean;
-
-  @Column()
   @IsString({ message: '제조사를 정확히 입력해주세여' })
   make: string;
 
-  @Column()
   @IsString({ message: '모델명을 입력해주세요' })
   model: string;
 
-  @Column()
+  @Transform(({ value }) => parseInt(value))
   @IsNumber({}, { message: '올바른 연식을 입력해주세요' })
   @Min(1930)
   @Max(2024)
   year: number;
 
-  @Column()
+  @Transform(({ value }) => parseFloat(value))
   @IsLongitude({ message: '올바른 경도를 입력해주세요' })
   lng: number;
 
-  @Column()
+  @Transform(({ value }) => parseFloat(value))
   @IsLatitude({ message: '올바른 위도를 입력해주세요' })
   lat: number;
 
-  @Column()
+  @Transform(({ value }) => parseInt(value))
   @IsNumber({}, { message: '올바른 주행거리가 아닙니다.' })
   @Min(0)
   @Max(4000000)
   mileage: number;
-
-  @ManyToOne(() => User, (user) => user.reports)
-  user: User;
 }
